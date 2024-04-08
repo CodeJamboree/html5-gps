@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <script src="index.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+      defer
+    ></script>
+  </head>
+  <body>
+    <h1>Geolocation</h1>
+    <button id="GetCurrentPosition">Get Current Position</button>
+    <button id="WatchPosition">Watch Position</button>
+    <button id="ClearWatch" disabled>Clear Watch</button>
+    <br />
+    <table>
+      <thead>
+      <tr>
+        <td>Maximum Age</td>
+        <td>Timeout</td>
+        <td>High Accuracy</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td valign="top">
+          <input type="radio" name="maximumAge" value="gps" checked>Attempt to get from GPS<br />
+          <input type="radio" name="maximumAge" value="mixed"><input id="MaximumAgeMS" value="400" size="3"> milliseconds or less<br />
+          <input type="radio" name="maximumAge" value="cached">Cached only<br />
+        </td>
+        <td valign="top">
+          <input type="radio" name="timeout" value="never" checked>Never<br />
+          <input type="radio" name="timeout" value="limited"><input id="TimeoutMS" value="400" size="3"> milliseconds<br />
+        </td>
+        <td valign="top">
+          <input type="radio" name="highAccuracy" value="true">Yes<br />
+          <input type="radio" name="highAccuracy" value="false" checked>No
+        </td>
+      </tr>
+    </tbody>
+    </table>
+    <textarea id="CoordinatesTextArea" rows="10" cols="70"></textarea><br />
+    <div id="MapArea" style="border:1px solid black; height: 200px;"></div>
+  </body>
+  </html>
