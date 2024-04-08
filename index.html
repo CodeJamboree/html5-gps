@@ -7,6 +7,29 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbyT-nyl6DM7uOwBqMXkqWj8aQk89ydAw&callback=initMap&v=weekly"
       defer
     ></script>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      table, th, td {
+        border: 1px solid black;
+      }
+      th, td {
+        padding: 5px;
+      }
+      th {
+        text-align: left;
+      }
+      textarea {
+        width: 100%;
+      }
+      #MapArea {
+        background-color: #cccccc;
+        width: 100%;
+        border: 1px solid black;
+        height: 200px;
+      }
+    </style>
   </head>
   <body>
     <h1>Geolocation</h1>
@@ -41,6 +64,6 @@
     </tbody>
     </table>
     <textarea id="CoordinatesTextArea" rows="10" cols="70"></textarea><br />
-    <div id="MapArea" style="border:1px solid black; height: 200px;"></div>
+    <div id="MapArea"></div>
   </body>
   </html>
