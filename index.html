@@ -38,8 +38,21 @@
 
     #MapArea {
       background-color: #cccccc;
-      width: 100%;
+      min-height: 400px;
+      bottom: 0;
+      right: 0;
+      top: 0;
+      min-width: 100px;
+      flex-grow: 5;
       border: 1px solid black;
+    }
+
+    .table-and-map {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      column-gap: 20px;
     }
   </style>
 </head>
@@ -78,100 +91,105 @@
       </tr>
     </tbody>
   </table>
-  <table>
-    <thead>
-      <tr>
-        <td>Measurement</td>
-        <td>Value</td>
-        <td>Converted</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Latitude</td>
-        <td>
-          <span id="LatitudeDD"></span><br />
-          Decimal Degrees
-        </td>
-        <td>
-          <span id="LatitudeDMS"></span>
-        </td>
-      </tr>
-      <tr>
-        <td>Longitude</td>
-        <td>
-          <span id="LongitudeDD"></span><br />
-          Decimal Degrees
-        </td>
-        <td>
-          <span id="LongitudeDMS"></span>
-        </td>
-      </tr>
-      <tr>
-        <td>Accuracy</td>
-        <td>
-          <span id="AccuracyM"></span><br />
-          Meters
-        </td>
-        <td>
-          <span id="AccuracyF"></span>
-        </td>
-      </tr>
-      <tr>
-        <td>Altitude</td>
-        <td>
-          <span id="AltitudeM"></span><br />
-          Meters
-        </td>
-        <td>
-          <span id="AltitudeF"></span>
-        </td>
-      </tr>
-      <tr>
-        <td>Altitude Accuracy</td>
-        <td>
-          <span id="AltitudeAccuracyM"></span><br />
-          Meters
-        </td>
-        <td>
-          <span id="AltitudeAccuracyF"></span>
-        </td>
-      </tr>
-      <tr>
-        <td>Heading</td>
-        <td>
-          <span id="HeadingD"></span><br />
-          Degrees
-        </td>
-        <td>
-          <span id="HeadingC"></span>
-        </td>
-      </tr>
-      <tr>
-        <td>Speed</td>
-        <td>
-          <span id="SpeedMetersPerSecond"></span><br />
-          Meters per second
-        </td>
-        <td>
-          <span id="SpeedMilesPerHour"></span>
-          Miles per hour
-        </td>
-      </tr>
-      <tr>
-        <td>Timestamp</td>
-        <td>
-          <span id="TimestampU"></span><br />
-          Unix Time
-        </td>
-        <td>
-          <span id="TimestampL"></span>
-          Locale Time
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div id="MapArea"></div>
+  <div class="table-and-map">
+    <div class="table-area">
+      <table>
+        <thead>
+          <tr>
+            <td>Measurement</td>
+            <td>Value</td>
+            <td>Converted</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Latitude</td>
+            <td>
+              <span id="LatitudeDD"></span><br />
+              Decimal Degrees
+            </td>
+            <td>
+              <span id="LatitudeDMS"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Longitude</td>
+            <td>
+              <span id="LongitudeDD"></span><br />
+              Decimal Degrees
+            </td>
+            <td>
+              <span id="LongitudeDMS"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Accuracy</td>
+            <td>
+              <span id="AccuracyM"></span><br />
+              Meters
+            </td>
+            <td>
+              <span id="AccuracyF"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Altitude</td>
+            <td>
+              <span id="AltitudeM"></span><br />
+              Meters
+            </td>
+            <td>
+              <span id="AltitudeF"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Altitude Accuracy</td>
+            <td>
+              <span id="AltitudeAccuracyM"></span><br />
+              Meters
+            </td>
+            <td>
+              <span id="AltitudeAccuracyF"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Heading</td>
+            <td>
+              <span id="HeadingD"></span><br />
+              Degrees
+            </td>
+            <td>
+              <span id="HeadingC"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Speed</td>
+            <td>
+              <span id="SpeedMetersPerSecond"></span><br />
+              Meters per second
+            </td>
+            <td>
+              <span id="SpeedMilesPerHour"></span>
+              Miles per hour
+            </td>
+          </tr>
+          <tr>
+            <td>Timestamp</td>
+            <td>
+              <span id="TimestampU"></span><br />
+              Unix Time
+            </td>
+            <td>
+              <span id="TimestampL"></span>
+              Locale Time
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="MapArea"></div>
+  </div>
   <pre id="CoordinatesTextArea"></pre>
 </body>
+
 </html>
