@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Geolocation</title>
-    <script src="index.js"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbyT-nyl6DM7uOwBqMXkqWj8aQk89ydAw&callback=initMap&v=weekly"
-      defer
-    ></script>
-    <style>
-      table {
-        border-collapse: collapse;
-      }
-      table, th, td {
-        border: 1px solid black;
-      }
-      th, td {
-        padding: 5px;
-      }
-      th {
-        text-align: left;
-      }
-      textarea {
-        width: 100%;
-      }
-      #MapArea {
-        background-color: #cccccc;
-        width: 100%;
-        border: 1px solid black;
-        height: 200px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Geolocation</h1>
-    <button id="GetCurrentPosition">Get Current Position</button>
-    <button id="WatchPosition">Watch Position</button>
-    <button id="ClearWatch" disabled>Clear Watch</button>
-    <br />
-    <table>
-      <thead>
+
+<head>
+  <title>Geolocation</title>
+  <script src="index.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbyT-nyl6DM7uOwBqMXkqWj8aQk89ydAw&callback=initMap&v=weekly"
+    defer></script>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+
+    th,
+    td {
+      padding: 5px;
+    }
+
+    td {
+      vertical-align: top;
+    }
+
+    th {
+      text-align: left;
+    }
+
+    #CoordinatesTextArea {
+      width: 100%;
+      height: 400px;
+    }
+
+    #MapArea {
+      background-color: #cccccc;
+      width: 100%;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Geolocation</h1>
+  <button id="GetCurrentPosition">Get Current Position</button>
+  <button id="WatchPosition">Watch Position</button>
+  <button id="ClearWatch" disabled>Clear Watch</button>
+  <br />
+  <table>
+    <thead>
       <tr>
         <td>Maximum Age</td>
         <td>Timeout</td>
@@ -49,12 +62,14 @@
       <tr>
         <td valign="top">
           <input type="radio" name="maximumAge" value="gps" checked>Attempt to get from GPS<br />
-          <input type="radio" name="maximumAge" value="mixed"><input id="MaximumAgeMS" value="400" size="3"> milliseconds or less<br />
+          <input type="radio" name="maximumAge" value="mixed"><input id="MaximumAgeMS" value="400" size="3">
+          milliseconds or less<br />
           <input type="radio" name="maximumAge" value="cached">Cached only<br />
         </td>
         <td valign="top">
           <input type="radio" name="timeout" value="never" checked>Never<br />
-          <input type="radio" name="timeout" value="limited"><input id="TimeoutMS" value="400" size="3"> milliseconds<br />
+          <input type="radio" name="timeout" value="limited"><input id="TimeoutMS" value="400" size="3">
+          milliseconds<br />
         </td>
         <td valign="top">
           <input type="radio" name="highAccuracy" value="true">Yes<br />
@@ -62,8 +77,101 @@
         </td>
       </tr>
     </tbody>
-    </table>
-    <textarea id="CoordinatesTextArea" rows="10" cols="70"></textarea><br />
-    <div id="MapArea"></div>
-  </body>
-  </html>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <td>Measurement</td>
+        <td>Value</td>
+        <td>Converted</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Latitude</td>
+        <td>
+          <span id="LatitudeDD"></span><br />
+          Decimal Degrees
+        </td>
+        <td>
+          <span id="LatitudeDMS"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>Longitude</td>
+        <td>
+          <span id="LongitudeDD"></span><br />
+          Decimal Degrees
+        </td>
+        <td>
+          <span id="LongitudeDMS"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>Accuracy</td>
+        <td>
+          <span id="AccuracyM"></span><br />
+          Meters
+        </td>
+        <td>
+          <span id="AccuracyF"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>Altitude</td>
+        <td>
+          <span id="AltitudeM"></span><br />
+          Meters
+        </td>
+        <td>
+          <span id="AltitudeF"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>Altitude Accuracy</td>
+        <td>
+          <span id="AltitudeAccuracyM"></span><br />
+          Meters
+        </td>
+        <td>
+          <span id="AltitudeAccuracyF"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>Heading</td>
+        <td>
+          <span id="HeadingD"></span><br />
+          Degrees
+        </td>
+        <td>
+          <span id="HeadingC"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>Speed</td>
+        <td>
+          <span id="SpeedMetersPerSecond"></span><br />
+          Meters per second
+        </td>
+        <td>
+          <span id="SpeedMilesPerHour"></span>
+          Miles per hour
+        </td>
+      </tr>
+      <tr>
+        <td>Timestamp</td>
+        <td>
+          <span id="TimestampU"></span><br />
+          Unix Time
+        </td>
+        <td>
+          <span id="TimestampL"></span>
+          Locale Time
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="MapArea"></div>
+  <pre id="CoordinatesTextArea"></pre>
+</body>
+</html>

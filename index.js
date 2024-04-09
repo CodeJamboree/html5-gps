@@ -10,7 +10,7 @@ var googleMaps_marker;
 var marker;
 
 function show(text) {
-  CoordinatesTextArea.value = text;
+  CoordinatesTextArea.innerText = text;
 }
 
 function getOptions() {
@@ -79,19 +79,24 @@ function decimalDegreesToDegreesMinutesSeconds(dd) {
   var degrees = Math.floor(dd);
   var minutes = Math.floor((dd - degrees) * 60);
   var seconds = (((dd - degrees) * 60) - minutes) * 60;
+  seconds = Math.floor(seconds * 10000) / 10000;
  return `${degrees}\u00B0 ${minutes}' ${seconds}"`;
 }
 
 function metersToFeet(meters) {
-  if(meters === null || meters === undefined) return '0 feet';
-  return `${meters / 0.3048} feet`;
+  if(meters === null || meters === undefined) return '0\' 0"';
+  var feet = meters / 0.3048;
+  var inches = (feet - Math.floor(feet)) * 12;
+  feet = Math.floor(feet);
+  inches = Math.floor(inches * 10) / 10;
+  return `${feet}' ${inches}"`;
 }
 
 function metersPerSecondToMilesPerHour(meters) {
-  if(meters === null || meters === undefined) return '0 miles per hour';
+  if(meters === null || meters === undefined) return 0;
   var metersPerHour = meters * 3600;
   var feetPerHour = metersPerHour / 0.3048;
-  return `${Math.floor((feetPerHour / 5280) * 100)/100} miles per hour`;
+  return Math.floor((feetPerHour / 5280) * 100)/100;
 }
 
 function degreesToCardinalDirection(degrees) {
@@ -120,16 +125,46 @@ function successHandler(position) {
   var heading = position.coords.heading;
   var altitude = position.coords.altitude;
   var speed = position.coords.speed;
+  var timestamp = position.timestamp;
 
-  show(`Latitude: ${latitude} Decimal Degrees (${decimalDegreesToDegreesMinutesSeconds(latitude)})
-Longitude: ${longitude} Decimal Degrees (${decimalDegreesToDegreesMinutesSeconds(longitude)})
-Accuracy: ${accuracy} meters (${metersToFeet(accuracy)})
-Altitude: ${altitude} meters (${metersToFeet(altitude)})
-Altitude Accuracy: ${altitudeAccuracy} meters (${metersToFeet(altitudeAccuracy)})
-Heading: ${heading} degrees (${degreesToCardinalDirection(heading)})
-Speed: ${speed} meters per second (${metersPerSecondToMilesPerHour(speed)})
-Timestamp: ${position.timestamp} (${new Date(position.timestamp).toLocaleString()})
-`);
+  var latitudeDMS = decimalDegreesToDegreesMinutesSeconds(latitude);
+  var longitudeDMS = decimalDegreesToDegreesMinutesSeconds(longitude);
+  var accuracyF = metersToFeet(accuracy);
+  var altitudeF = metersToFeet(altitude);
+  var altitudeAccuracyF = metersToFeet(altitudeAccuracy);
+  var headingC = degreesToCardinalDirection(heading);
+  var speedMilesPerHour = metersPerSecondToMilesPerHour(speed);
+  var localeTime = new Date(timestamp).toLocaleString();
+
+  document.getElementById("LatitudeDD").textContent = latitude;
+  document.getElementById("LatitudeDMS").textContent = latitudeDMS;
+  document.getElementById("LongitudeDD").textContent = longitude;
+  document.getElementById("LongitudeDMS").textContent = longitudeDMS;
+  document.getElementById("AccuracyM").textContent = accuracy;
+  document.getElementById("AccuracyF").textContent = accuracyF;
+  document.getElementById("AltitudeM").textContent = altitude;
+  document.getElementById("AltitudeF").textContent = altitudeF;
+  document.getElementById("AltitudeAccuracyM").textContent = altitudeAccuracy;
+  document.getElementById("AltitudeAccuracyF").textContent = altitudeAccuracyF;
+  document.getElementById("HeadingD").textContent = heading;
+  document.getElementById("HeadingC").textContent = headingC;
+  document.getElementById("SpeedMetersPerSecond").textContent = speed;
+  document.getElementById("SpeedMilesPerHour").textContent = speedMilesPerHour;
+  document.getElementById("TimestampU").textContent = timestamp;
+  document.getElementById("TimestampL").textContent = localeTime;
+
+  show(JSON.stringify({
+    coords: {
+      latitude,
+      longitude,
+      accuracy,
+      altitude,
+      altitudeAccuracy,
+      heading,
+      speed,
+    },
+    timestamp
+  }, null, '\t'));
 
   var googlePosition = { 
     lat: latitude, 
